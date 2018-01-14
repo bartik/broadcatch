@@ -48,9 +48,9 @@ setTmpVariables()
 }
 
 # main starts here
-PATH="/opt/bin"
+PATH="/bin:/usr/bin"
 
-# get absolute path to scrip
+# get absolute path to script
 WORKDIR=`echo "$0" | sed -e 's/\/[^\/]*$//'`
 WORKDIR=`cd "${WORKDIR}" 2>/dev/null && pwd || echo "${WORKDIR}"`
 cd "${WORKDIR}"
@@ -99,10 +99,10 @@ TMPVAR="${TMPDIR}/${MYNAME}_${MYPID}.var"
 
 # set default files/values which can be changed by conf file
 OLD="${WORKDIR}/${MYNAME}.old"
-LOG="/volume1/public/debian/chroottarget/var/www/${MYNAME}.xml"
-TMPMAIL="/volume1/public/debian/chroottarget/tmp/${MYNAME}.txt"
+LOG="/root/broadcatch/log/${MYNAME}.xml"
+TMPMAIL="/root/broadcatch/tmp/${MYNAME}.txt"
 COOKIES="${WORKDIR}/${MYNAME}.cos"
-TORRENTDIR="/volume1/public/debian/chroottarget/root/.mldonkey/torrents/incoming"
+TORRENTDIR="/root/broadcatch/tmp"
 TORRENTTIMEOUT=120
 TORRENTRETRY=6
 
@@ -212,7 +212,7 @@ printXmlTraceText "  </ENTRY>"
 
 # prepare mail to send
 echo "From: sender@example.com" > "$TMPMAIL"
-echo "To: sender@example.com" >> "$TMPMAIL"
+echo "To: receiver@example.com" >> "$TMPMAIL"
 echo "Subject: broadcatch report" >> "$TMPMAIL"
 echo "" >> "$TMPMAIL"
 echo "These torrents will be downloaded:" >> "$TMPMAIL"
@@ -244,17 +244,17 @@ then
       echo "${TORRENT}" >> "${OLD}"
       echo "${TORRENT}" >> "${TMPMAIL}"
       # print additional information into the mail
-      /volume1/public/debian/chroottarget/home/bdecode/a.out -o "${TORRENTDIR}/${MYNAME}_${MYPID}_${COUNT}.torrent" |\
-      tr -d '\n' |\
-      sed -e 's/>[ \t]*</></g' \
-          -e 's/<PAIR><BYTESTRING length="6">pieces<\/BYTESTRING><BYTESTRING length="[0-9]*">[^>]*>//g' \
-          -e 's|</PAIR>|@|g' \
-          -e 's|</[A-Z]*>|:|g' \
-          -e 's|<[^>]*>||g' \
-          -e 's|:@|@|g' \
-          -e 's/@*:$/@/g' \
-          -e 's/&#32;/ /g' |\
-      tr '@' '\n' >> "${TMPMAIL}"
+      # /volume1/public/debian/chroottarget/home/bdecode/a.out -o "${TORRENTDIR}/${MYNAME}_${MYPID}_${COUNT}.torrent" |\
+      # tr -d '\n' |\
+      # sed -e 's/>[ \t]*</></g' \
+      #    -e 's/<PAIR><BYTESTRING length="6">pieces<\/BYTESTRING><BYTESTRING length="[0-9]*">[^>]*>//g' \
+      #    -e 's|</PAIR>|@|g' \
+      #    -e 's|</[A-Z]*>|:|g' \
+      #    -e 's|<[^>]*>||g' \
+      #    -e 's|:@|@|g' \
+      #    -e 's/@*:$/@/g' \
+      #    -e 's/&#32;/ /g' |\
+      #tr '@' '\n' >> "${TMPMAIL}"
     fi
     printXmlSingleLogEntry "${TORRENT}" "${STATUS}"
     COUNT=`expr $COUNT + 1`
@@ -265,15 +265,15 @@ fi
 printXmlSingleTraceEntry "End $0 at ${NOW}"
 printXmlLogText "</RUN>"
 
-# if new files then sort and uniq the old file list
+# if new files then sort and uniq the old file lis
 if [ "${NEWITEMS}" -gt 0 ]
 then
   # there are torrents to download try to start mlnet
-  /opt/etc/init.d/S80mlnet start
+  #/opt/etc/init.d/S80mlnet start
   # try to send email notification
   echo "" >> "$TMPMAIL"
-  #/opt/sbin/chroot /volume1/public/debian/chroottarget /bin/bash -c "/usr/local/sbin/ssmtp -t < /tmp/${MYNAME}.txt"
-  /opt/sbin/chroot /volume1/public/debian/chroottarget /bin/bash -c "/usr/local/bin/msmtp -t < /tmp/${MYNAME}.txt"
+  # /opt/sbin/chroot /volume1/public/debian/chroottarget /bin/bash -c "/usr/local/sbin/ssmtp -t < /tmp/${MYNAME}.txt"
+  # /opt/sbin/chroot /volume1/public/debian/chroottarget /bin/bash -c "/usr/local/bin/msmtp -t < /tmp/${MYNAME}.txt"
   sortAndUniqFile "${OLD}" "${TMPTMP}"
 fi
 
@@ -294,3 +294,4 @@ fi
 # remove temporary files
 removeTmpFiles
 exit 0
+

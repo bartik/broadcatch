@@ -34,7 +34,7 @@ xmlify()
       -e 's/>/\&gt;/g' \
       -e 's/"/\&quot;/g'
   fi
-}
+}     
 
 # print text to file
 printXmlText()
@@ -79,7 +79,7 @@ printXmlLogText()
 # $3 - temporarry file to store the original log
 addToWebLog()
 {
-  # remove the closing tag
+  # remove the closing tag 
   sed -e '/^\s*$/d' -e '$,$d' "$1" > "$3"
   CLOSINGTAG=`sed -n '$p' "$1"`
   # equivalent to above CLOSINGTAG=`sed -e '$!d' "$1"`
@@ -122,7 +122,7 @@ sortAndUniqFile()
 # $2 - where to save the torrent file
 # $3 - timeout value for http connection
 # $4 - number of retries
-# $5 - what to use wget/curl curl is default
+# $5 - what to use wget/curl curl is default 
 # $6 - file for cookies
 # retrun value
 # the exit status of the curl/wget respectively

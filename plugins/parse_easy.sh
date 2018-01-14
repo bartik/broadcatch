@@ -5,7 +5,7 @@
 # $4 - end tag (spaces are encoded with %20)
 
 # set internal variables
-PATH="/opt/bin"
+PATH="/bin:/usr/bin"
 EXT=$(echo $0|sed -e 's/^.*parse_//' -e 's/\.sh$//')
 TMPFILE="${1}.${EXT}"
 TMPEXT="${1}.extract"
@@ -30,3 +30,4 @@ fi
 
 # remove rubbish
 rm -f "$TMPEXT" "$TMPFILE"
+
