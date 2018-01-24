@@ -13,7 +13,7 @@
 # the ${TMPTMP} variable is never used to hold permanent information !
 #
 
-# removes the temporary file
+# removes the temporary files
 # no parameters
 removeTmpFiles()
 {
@@ -36,7 +36,7 @@ cleanUp()
   exit 1
 }
 
-# set temporary variables given as lis
+# set temporary variables given as list
 # $1 - list of variables to create
 setTmpVariables()
 {
@@ -70,7 +70,7 @@ FAILED="FAILED"
 SUCCESS="SUCCESS"
 NOW=`date`
 
-# check if configuration is presen
+# check if configuration is present
 if [ ! -r "$CFG" ]
 then
   echo "The configuration file $CFG not found or not readable!" >&2
@@ -157,8 +157,8 @@ printXmlSingleTraceEntry "Start $0 at ${NOW}"
 printXmlSingleTraceEntry "Working directory `pwd`"
 
 # get the list of rss feeds
-grep -v "^#" "$CFG" |
-  grep -v "^$" |
+grep -v "^#" "$CFG" |\
+  grep -v "^$" |\
   grep -v '^\$' > "$TMPCFG"
 
 printXmlTraceText "  <ENTRY TYPE=\"TRACE\" FROM=\"$MYNAME\">Preprocessed configuration ${CFG}"
@@ -254,7 +254,7 @@ then
       #    -e 's|:@|@|g' \
       #    -e 's/@*:$/@/g' \
       #    -e 's/&#32;/ /g' |\
-      #tr '@' '\n' >> "${TMPMAIL}"
+      # tr '@' '\n' >> "${TMPMAIL}"
     fi
     printXmlSingleLogEntry "${TORRENT}" "${STATUS}"
     COUNT=`expr $COUNT + 1`
@@ -265,7 +265,7 @@ fi
 printXmlSingleTraceEntry "End $0 at ${NOW}"
 printXmlLogText "</RUN>"
 
-# if new files then sort and uniq the old file lis
+# if new files then sort and uniq the old file list
 if [ "${NEWITEMS}" -gt 0 ]
 then
   # there are torrents to download try to start mlnet
