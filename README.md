@@ -6,7 +6,7 @@ See the example configuration file. The variable $TORRENTDIR is set to the picku
 
 easy|https://eztv.ag/search/?q1=&q2=1934&search=Search|720p.HDTV.\*torrent|<a%20href=\\"|[\\"\&]
 
-1. The first parameter P1 (easy) defines the way how the torrents will be extracted (see the file plugins/parse_{P1}.sh, the parse script is determined based on this first parameter P1 "easy"). See table below 
+1. The first parameter P1 (**easy**) defines the way how the torrents will be extracted (see the file plugins/parse_{P1}.sh, the parse script is determined based on this first parameter P1 "easy"). See table below 
 
 First parameter | Parser script
 --------------- | -------------
@@ -17,7 +17,7 @@ ggkthx|parse_ggkthx.sh
 kaizoku|parse_kaizoku.sh
 mininova|parse_mininova.sh
 rss|parse_rss.sh
-2. The second parameter https://eztv.ag/search/?q1=&q2=1934&search=Search defines the URL where to find the list of the torrents which we want to download in html format.
+2. The second parameter **https://eztv.ag/search/?q1=&q2=1934&search=Search** defines the URL where to find the list of the torrents which we want to download in html format.
 ```HTML
 </td>
 <td align="center" class="forum_thread_post">343.69 MB</td>
@@ -41,7 +41,7 @@ rss|parse_rss.sh
 </tr>
 <tr name="hover" class="forum_header_border">
 ```
-2. The fourth <a%20href=\\" and fifth [\\"\&] parameters define the start and stop patterns between which a text can be found that contains torrent information. Which in our case could be a magnet link
+3. The fourth **<a%20href=\\"** and fifth **[\\"\&]** parameters defines the start and stop patterns between which a text can be found that contains torrent information. In our case it could be a magnet link
 ```
 magnet:?xt=urn:btih:dd36a4e759cebd0d30da939b57eafe54a20e4e41
 ```
@@ -49,5 +49,7 @@ or a torrent file
 ```
 https://zoink.ch/torrent/Lethal.Weapon.S02E14.720p.HDTV.x264-AVS[eztv].mkv.torrent
 ```
-2. The third parameter 720p.HDTV.\*torrent determines the pattern to search for. Only the matching lines are extracted.
-
+4. The third parameter **720p.HDTV.\*torrent** determines the pattern to search for in the above results. Only the matching lines are extracted. Thus we get this
+```
+https://zoink.ch/torrent/Lethal.Weapon.S02E14.720p.HDTV.x264-AVS[eztv].mkv.torrent
+```
