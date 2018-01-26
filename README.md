@@ -1,5 +1,21 @@
-# broadcatch
-This script is used to check a torrent feed, download the torrent files and move them to a torrent client pickup directory.
+# broadcatch.sh
+This script is used to check a torrent feed, download the torrent files and move them to a torrent client pickup directory. The script has no tty output.
+
+## crontab
+You can use crontab to schedule when to check for torrent files. Since the torrents are only moved to the pickup directory you can schedule your torrent client to run whenever is convenient for you and it will pick up the prepared torrents.
+
+## broadcatch.xsl and broadcatch.xml
+The log file of broadcatch is in xml format. You can use the xsl file to format it (Just copy the xml and xsl to a directory and open the xml with a browser). If you drop the xsl-if from the xsl file also all the trace lines will be shown.
+```XSLT
+<xsl:template match="ENTRY">
+  <xsl:if test="@TYPE != 'TRACE'">
+  <tr>
+    <td><xsl:value-of select="@TYPE"/></td>
+    <td colspan="2"><xsl:call-template name="break"/></td>
+  </tr>
+  </xsl:if>
+</xsl:template>
+```
 
 ## broadcatch.conf
 See the example configuration file. The variable $TORRENTDIR is set to the pickup directory of the transmission client. The line starting with easy sets up the torrent extraction. The delimiter is the pipe character |. 
