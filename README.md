@@ -8,12 +8,12 @@ You can use crontab to schedule when to check for torrent files. Since the torre
 The log file of broadcatch is in xml format. You can use the xsl file to format it (Just copy the xml and xsl to a directory and open the xml with a browser). If you drop the xsl-if from the xsl file also all the trace lines will be shown.
 ```XSLT
 <xsl:template match="ENTRY">
-  <xsl:if test="@TYPE != 'TRACE'">
+  ~~<xsl:if test="@TYPE != 'TRACE'">~~
   <tr>
     <td><xsl:value-of select="@TYPE"/></td>
     <td colspan="2"><xsl:call-template name="break"/></td>
   </tr>
-  </xsl:if>
+  ~~</xsl:if>~~
 </xsl:template>
 ```
 
