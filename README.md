@@ -1,5 +1,5 @@
 # broadcatch.sh
-This script is used to check a torrent feed, download the torrent files and move them to a torrent client pickup directory. The script has no tty output.
+This script is used to check a torrent feed, download the torrent files and move them to a torrent client pickup directory. The script has no tty output. It is used on a DNS-323 NAS.
 
 ## crontab
 You can use crontab to schedule when to check for torrent files. Since the torrents are only moved to the pickup directory you can schedule your torrent client to run whenever is convenient for you and it will pick up the prepared torrents.
